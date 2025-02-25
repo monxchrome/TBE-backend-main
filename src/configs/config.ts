@@ -8,8 +8,16 @@ export const configs = {
 
   PASSWORD_SALT: process.env.PASSWORD_SALT || 12,
 
-  ACCESS_SECRET: process.env.ACCESS_SECRET,
-  ACCESS_EXPIRES_IN: process.env.ACCESS_EXPIRES_IN,
-  REFRESH_SECRET: process.env.REFRESH_SECRET,
-  REFRESH_EXPIRES_IN: process.env.REFRESH_EXPIRES_IN,
+  ACCESS_SECRET:
+    process.env.ACCESS_SECRET || "ultra-secret-key-for-access-secret-jwt-token",
+  ACCESS_EXPIRES_IN: process.env.ACCESS_EXPIRES_IN || "24h",
+  REFRESH_SECRET:
+    process.env.REFRESH_SECRET ||
+    "ultra-secret-key-for-refresh-secret-jwt-token",
+  REFRESH_EXPIRES_IN: process.env.REFRESH_EXPIRES_IN || "30d",
+
+  ACTIVATE_SECRET:
+    process.env.ACTIVATE_SECRET || "action-ultra-activate-secret-token",
+  FORGOT_SECRET:
+    process.env.FORGOT_SECRET || "action-ultra-forgot-secret-token",
 };

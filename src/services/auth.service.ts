@@ -6,6 +6,7 @@ import { ICredentials } from "../types/auth.types.js";
 import { ITokenPair } from "../types/token.types.js";
 import { IUser } from "../types/user.types.js";
 import { oauthService } from "./oauth.service.js";
+import { tokenService } from "./token.service.js";
 
 class AuthService {
   public async register(body: IUser) {
