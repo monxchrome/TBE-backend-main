@@ -6,7 +6,7 @@ export const configs = {
   PORT: process.env.PORT,
   DB_URL: process.env.DB_URL || "mongodb://localhost:27017",
 
-  PASSWORD_SALT: process.env.PASSWORD_SALT,
+  PASSWORD_SALT: process.env.PASSWORD_SALT || 12,
 
   ACCESS_SECRET: process.env.ACCESS_SECRET,
   ACCESS_EXPIRES_IN: process.env.ACCESS_EXPIRES_IN,
