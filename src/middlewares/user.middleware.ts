@@ -4,6 +4,7 @@ import { isObjectIdOrHexString } from "mongoose";
 import { ApiError } from "../errors/index.js";
 import { User } from "../models/User.model.js";
 import { IRequest } from "../types/index.js";
+import { AuthValidator } from "../validators/auth.validator.js";
 import { UserValidator } from "../validators/user.validator.js";
 
 class UserMiddleware {
@@ -124,6 +125,25 @@ class UserMiddleware {
         next(e);
       }
     };
+  }
+
+  public async isValidLogin(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const { error, value } = AuthValidator.loginUser.validate(req.body);
+
+      if (error) {
+        next(new ApiError(error.message, 400));
+      }
+
+      req.body = value;
+      next();
+    } catch (e) {
+      next(e);
+    }
   }
 }
 

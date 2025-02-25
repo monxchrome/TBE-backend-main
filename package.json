@@ -2,7 +2,6 @@
   "name": "tbe-backend-main",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "rimraf dist && tsc-watch --onSuccess 'yarn run watch'",
     "watch": "nodemon 'src/app.ts' --watch './src'",

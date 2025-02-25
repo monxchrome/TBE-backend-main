@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
 import { authService } from "../services/auth.service.js";
-import { ITokenPair } from "../types/token.types.js";
 import { IUser } from "../types/user.types.js";
 
 class AuthController {
@@ -19,7 +18,7 @@ class AuthController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<ITokenPair> | void> {
+  ): Promise<void> {
     try {
       const { email, password } = req.body;
       const { user } = req.res!.locals;
@@ -29,7 +28,7 @@ class AuthController {
         user as IUser,
       );
 
-      return res.status(200).json(tokenPair);
+      res.status(200).json(tokenPair);
     } catch (e) {
       next(e);
     }
