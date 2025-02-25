@@ -3,6 +3,8 @@ import { isObjectIdOrHexString } from "mongoose";
 
 import { ApiError } from "../errors/index.js";
 import { User } from "../models/User.model.js";
+import { IRequest } from "../types/index.js";
+import { UserValidator } from "../validators/user.validator.js";
 
 class UserMiddleware {
   public async isIdValid(
@@ -37,9 +39,68 @@ class UserMiddleware {
     }
   }
 
+  public async isValidCreate(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const { error, value } = UserValidator.create.validate(req.body);
+
+      if (error) {
+        next(new ApiError(error.message, 400));
+      }
+
+      req.body = value;
+      next();
+    } catch (e) {
+      next(e);
+    }
+  }
+
   public async isValidUpdate(
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<void> {}
+  ): Promise<void> {
+    try {
+      const { error, value } = UserValidator.update.validate(req.body);
+
+      if (error) {
+        next(new ApiError(error.message, 400));
+      }
+
+      req.body = value;
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public getDynamicallyOrThrow(
+    fieldName: string,
+    from = "body",
+    dbField = fieldName,
+  ) {
+    return async (req: IRequest, res: Response, next: NextFunction) => {
+      try {
+        const fieldValue = req[from][fieldName];
+
+        const user = await User.findOne({ [dbField]: fieldValue });
+
+        if (!user) {
+          return next(new ApiError("User not found", 404));
+        }
+
+        req.locals.user = user;
+
+        next();
+      } catch (e) {
+        next(e);
+      }
+    };
+  }
 }
+
+export const userMiddleware = new UserMiddleware();
