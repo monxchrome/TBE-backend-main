@@ -78,6 +78,31 @@ class UserMiddleware {
     }
   }
 
+  public getDynamicallyAndThrow(
+    fieldName: string,
+    from = "body",
+    dbField = fieldName,
+  ) {
+    return async (req: IRequest, res: Response, next: NextFunction) => {
+      try {
+        const fieldValue = req[from][fieldName];
+
+        const user = await User.findOne({ [dbField]: fieldValue });
+
+        if (user) {
+          throw new ApiError(
+            `User with ${fieldName} ${fieldValue} is already exist!`,
+            409,
+          );
+        }
+
+        next();
+      } catch (e) {
+        next(e);
+      }
+    };
+  }
+
   public getDynamicallyOrThrow(
     fieldName: string,
     from = "body",
@@ -90,11 +115,10 @@ class UserMiddleware {
         const user = await User.findOne({ [dbField]: fieldValue });
 
         if (!user) {
-          return next(new ApiError("User not found", 404));
+          throw new ApiError("User not found", 404);
         }
 
-        req.locals.user = user;
-
+        res.locals.user = user;
         next();
       } catch (e) {
         next(e);
