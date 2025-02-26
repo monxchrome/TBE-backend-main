@@ -146,6 +146,37 @@ class AuthService {
       }
     }
   }
+
+  public async changeEmail(
+    userId: string,
+    oldEmail: string,
+    newEmail: string,
+    password: string,
+  ): Promise<void> {
+    try {
+      const user = (await User.findById(userId)) as IUser;
+
+      const isMatched = await oauthService.compare(password, user.password);
+
+      if (!isMatched) {
+        throw new ApiError("Invalid email or password", 401);
+      }
+
+      if (oldEmail !== user.email) {
+        throw new ApiError("Invalid email or password", 401);
+      }
+
+      await User.updateOne({ _id: userId }, { email: newEmail });
+    } catch (e) {
+      if (e instanceof ApiError) {
+        throw e;
+      } else if (e instanceof Error) {
+        throw new ApiError(e.message, 500);
+      } else {
+        throw new ApiError("Unknown error", 500);
+      }
+    }
+  }
 }
 
 export const authService = new AuthService();

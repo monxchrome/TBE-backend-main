@@ -73,6 +73,31 @@ class AuthController {
       next(e);
     }
   }
+
+  public async changeEmail(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const { tokenData } = req.res!.locals;
+
+      const { oldEmail, newEmail, password } = req.body;
+
+      await authService.changeEmail(
+        tokenData._user_id,
+        oldEmail,
+        newEmail,
+        password,
+      );
+
+      res.status(200).json({
+        message: "Email has been changed!",
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export const authController = new AuthController();
