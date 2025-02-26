@@ -33,6 +33,46 @@ class AuthController {
       next(e);
     }
   }
+
+  public async refresh(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const { tokenData, jwtPayload } = req.res!.locals;
+
+      const tokenPair = await authService.refresh(tokenData, jwtPayload);
+
+      res.status(200).json(tokenPair);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async changePassword(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const { tokenData } = req.res!.locals;
+
+      const { oldPassword, newPassword } = req.body;
+
+      await authService.changePassword(
+        tokenData._user_id,
+        oldPassword,
+        newPassword,
+      );
+
+      res.status(200).json({
+        message: "Password has been changed!",
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export const authController = new AuthController();
