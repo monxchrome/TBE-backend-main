@@ -1,0 +1,22 @@
+.email-register {
+  background-color: #28a745;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.email-register h1 {
+  color: #333;
+  font-size: 20px;
+}
+.email-register p {
+  color: #555;
+  font-size: 16px;
+}
+.email-register strong {
+  color: #007bff;
+}
+
+/*# sourceMappingURL=register.css.map */

@@ -1,0 +1,9 @@
+@use "variables" as *;
+
+.email-register {
+  @include notification-container($success-color);
+
+  strong {
+    color: $primary-color;
+  }
+}

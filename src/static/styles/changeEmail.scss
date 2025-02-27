@@ -1,0 +1,9 @@
+@use "variables" as *;
+
+.email-change {
+  @include notification-container($warning-color);
+
+  strong {
+    color: $error-color;
+  }
+}
