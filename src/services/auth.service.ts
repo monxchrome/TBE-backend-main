@@ -156,6 +156,29 @@ class AuthService {
     }
   }
 
+  public async setForgotPassword(
+    password: string,
+    id: string,
+    token: string,
+  ): Promise<void> {
+    try {
+      const hashedPassword = await oauthService.hash(password);
+      await User.updateOne({ _id: id }, { password: hashedPassword });
+      await Action.deleteOne({
+        actionToken: token,
+        tokenType: EActionToken.forgot,
+      });
+    } catch (e) {
+      if (e instanceof ApiError) {
+        throw e;
+      } else if (e instanceof Error) {
+        throw new ApiError(e.message, 500);
+      } else {
+        throw new ApiError("Unknown error", 500);
+      }
+    }
+  }
+
   public async changeEmail(
     userId: string,
     oldEmail: string,
