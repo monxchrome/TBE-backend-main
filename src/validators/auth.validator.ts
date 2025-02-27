@@ -1,13 +1,13 @@
 import Joi from "joi";
 
-import { REGEX_CONSTANT } from "../configs/constants/regex.constant.js";
+import { regexConstants } from "../configs/constants/regex.constant";
 
 export class AuthValidator {
   private static email = Joi.string()
-    .regex(REGEX_CONSTANT.EMAIL)
+    .regex(regexConstants.EMAIL)
     .lowercase()
     .trim();
-  private static password = Joi.string().regex(REGEX_CONSTANT.PASSWORD);
+  private static password = Joi.string().regex(regexConstants.PASSWORD);
 
   static loginUser = Joi.object({
     email: this.email.required(),

@@ -1,14 +1,16 @@
 import { EActionToken } from "../enums/actionToken.enum";
+import { EEmailEnum } from "../enums/email.enum";
 import { ApiError } from "../errors";
 import { Action } from "../models/Action.model";
 import { oldPassword } from "../models/OldPassword.model";
-import { Token } from "../models/Token.model.js";
-import { User } from "../models/User.model.js";
+import { Token } from "../models/Token.model";
+import { User } from "../models/User.model";
 import { ICredentials } from "../types/auth.types.js";
 import { ITokenPair, ITokenPayload } from "../types/token.types.js";
 import { IUser } from "../types/user.types.js";
-import { oauthService } from "./oauth.service.js";
-import { tokenService } from "./token.service.js";
+import { emailService } from "./email.service";
+import { oauthService } from "./oauth.service";
+import { tokenService } from "./token.service";
 
 class AuthService {
   public async register(body: IUser) {
@@ -20,6 +22,8 @@ class AuthService {
         ...body,
         password: hashedPassword,
       });
+
+      await emailService.sendEmail(body.email, EEmailEnum.REGISTER);
     } catch (e) {
       if (e instanceof ApiError) {
         throw e;
@@ -111,6 +115,8 @@ class AuthService {
       const HashNewPassword = await oauthService.hash(newPassword);
 
       await User.updateOne({ _id: userId }, { password: HashNewPassword });
+
+      await emailService.sendEmail(user.email, EEmailEnum.CHANGE_PASSWORD);
     } catch (e) {
       if (e instanceof ApiError) {
         throw e;
@@ -136,6 +142,9 @@ class AuthService {
       });
 
       await oldPassword.create({ _user_id: user._id, password: user.password });
+      await emailService.sendEmail(user.email, EEmailEnum.FORGOT_PASSWORD, {
+        token: actionToken,
+      });
     } catch (e) {
       if (e instanceof ApiError) {
         throw e;
@@ -167,6 +176,7 @@ class AuthService {
       }
 
       await User.updateOne({ _id: userId }, { email: newEmail });
+      await emailService.sendEmail(user.email, EEmailEnum.CHANGE_EMAIL);
     } catch (e) {
       if (e instanceof ApiError) {
         throw e;

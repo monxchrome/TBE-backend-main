@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { isObjectIdOrHexString } from "mongoose";
 
-import { ApiError } from "../errors/index.js";
-import { User } from "../models/User.model.js";
-import { IRequest } from "../types/index.js";
-import { AuthValidator } from "../validators/auth.validator.js";
-import { UserValidator } from "../validators/user.validator.js";
+import { ApiError } from "../errors";
+import { User } from "../models/User.model";
+import { IRequest } from "../types";
+import { AuthValidator } from "../validators/auth.validator";
+import { UserValidator } from "../validators/user.validator";
 
 class UserMiddleware {
   public async isIdValid(

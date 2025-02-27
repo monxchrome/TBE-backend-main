@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { authService } from "../services/auth.service.js";
+import { authService } from "../services/auth.service";
 import { IUser } from "../types/user.types.js";
 
 class AuthController {

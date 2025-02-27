@@ -20,4 +20,9 @@ export const configs = {
     process.env.ACTIVATE_SECRET || "action-ultra-activate-secret-token",
   FORGOT_SECRET:
     process.env.FORGOT_SECRET || "action-ultra-forgot-secret-token",
+
+  NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL || "noreply@noreply.com",
+  NO_REPLY_PASSWORD: process.env.NO_REPLY_PASSWORD || "test",
+
+  FRONT_URL: process.env.FRONT_URL || "http://localhost:3000",
 };

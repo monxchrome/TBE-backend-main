@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-import { configs } from "../configs/index.js";
+import { configs } from "../configs";
 
 class OAuthService {
   public async hash(password: string): Promise<string> {

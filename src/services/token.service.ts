@@ -1,9 +1,9 @@
 import * as jwt from "jsonwebtoken";
 
-import { configs } from "../configs/index.js";
-import { EActionToken } from "../enums/actionToken.enum.js";
-import { EToken } from "../enums/token.enum.js";
-import { ApiError } from "../errors/index.js";
+import { configs } from "../configs";
+import { EActionToken } from "../enums/actionToken.enum";
+import { EToken } from "../enums/token.enum";
+import { ApiError } from "../errors";
 import {
   IActionTokenPayload,
   ITokenPair,

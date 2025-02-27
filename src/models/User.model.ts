@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-import { ECountry } from "../enums/country.enum.js";
+import { ECountry } from "../enums/country.enum";
 
 export const userSchema = new Schema(
   {

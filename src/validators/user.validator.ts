@@ -1,15 +1,15 @@
 import Joi from "joi";
 
-import { REGEX_CONSTANT } from "../configs/constants/regex.constant.js";
-import { ECountry } from "../enums/country.enum.js";
+import { regexConstants } from "../configs/constants/regex.constant";
+import { ECountry } from "../enums/country.enum";
 
 export class UserValidator {
   private static email = Joi.string()
-    .regex(REGEX_CONSTANT.email)
+    .regex(regexConstants.EMAIL)
     .lowercase()
     .trim();
   private static username = Joi.string().max(25).trim();
-  private static password = Joi.string().regex(REGEX_CONSTANT.password);
+  private static password = Joi.string().regex(regexConstants.PASSWORD);
   private static dateOfBirth = Joi.date().less("now").iso().messages({
     "date.base": "Date must be a valid!",
     "date.less": "Date can't be in the future!",
