@@ -57,7 +57,7 @@ class EmailService {
     );
 
     return this.transporter.sendMail({
-      from: "No reply",
+      from: "dragons@cyberdragons-support.com",
       to: email,
       subject: templateData.subject,
       html,

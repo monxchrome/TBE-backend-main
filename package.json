@@ -28,6 +28,7 @@
     "typescript-eslint": "^8.24.1"
   },
   "dependencies": {
+    "@ladjs/i18n": "^8.0.3",
     "@types/nodemailer": "^6.4.17",
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
@@ -41,6 +42,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "express": "^4.21.2",
+    "handlebars": "^4.7.8",
     "husky": "^9.1.7",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
