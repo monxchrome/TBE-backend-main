@@ -1,16 +1,22 @@
+import cors from "cors";
 import express, {
+  Application,
   ErrorRequestHandler,
   NextFunction,
   Request,
   Response,
 } from "express";
-import * as mongoose from "mongoose";
 
-import { configs } from "./configs";
 import { authRouter } from "./router/auth.router";
 import { IError } from "./types";
 
-const app = express();
+const app: Application = express();
+
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 const errorHandler: ErrorRequestHandler = (
   err: IError,
   req: Request,
@@ -30,7 +36,4 @@ app.use("/auth", authRouter);
 
 app.use(errorHandler);
 
-app.listen(configs.PORT, async () => {
-  await mongoose.connect(configs.DB_URL);
-  console.log(`Server has started on port: ${configs.PORT}`);
-});
+export { app };

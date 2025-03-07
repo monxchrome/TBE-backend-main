@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "rimraf dist && tsc-watch --onSuccess 'yarn run watch'",
-    "watch": "nodemon 'src/app.ts' --watch './src'",
+    "watch": "nodemon 'src/server.ts' --watch './src'",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "prepare": "husky install"
   },
@@ -33,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "cron": "^4.0.0",
     "dotenv": "^16.4.7",
     "email-templates": "^12.0.1",
@@ -51,6 +52,7 @@
     "nodemon": "^3.1.9",
     "prettier": "^3.5.2",
     "rimraf": "^6.0.1",
+    "socket.io": "^4.8.1",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.1"
