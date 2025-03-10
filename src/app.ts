@@ -7,7 +7,7 @@ import express, {
   Response,
 } from "express";
 
-import { authRouter } from "./router/auth.router";
+import { authRoute } from "./router/auth.route";
 import { IError } from "./types";
 
 const app: Application = express();
@@ -32,7 +32,7 @@ const errorHandler: ErrorRequestHandler = (
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/auth", authRouter);
+app.use("/auth", authRoute);
 
 app.use(errorHandler);
 

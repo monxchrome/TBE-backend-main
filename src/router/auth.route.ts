@@ -6,7 +6,7 @@ import { userMiddleware } from "../middlewares/user.middleware";
 
 const router = Router();
 
-export const authRouter = router;
+export const authRoute = router;
 
 router.post(
   "/register",
